@@ -1,0 +1,33 @@
+首先建一个 命名为 shop_search 的mysql数据库
+
+然后把 database 目录的表导入进 shop_search 数据库
+
+本项目有4个表,分别是
+
+goods 商品信息表
+
+goods_word 商品分词表,搜索引擎行业内也叫"文档倒排索引表",记录的是商品 跟词条之间的关系
+
+synonym_word 是同义词表.
+
+word 是字典表.
+
+首先要装个redis,
+
+然后执行 load_word_to_redis.php, 把mysql的字典表导入进redis集合,形成 hash 字典.如果词条数据非常大,可以试试 trie tree 数据结构.
+
+再执行 load_word_goods_to_redis.php 把"文档倒排索引表"导入redis,因为要求多个集合的交集,链表结构求交集没有hashset结构快.
+
+两个链表(n,m)求交集 的时间复杂度是 O(n*m) ,两个hashset(n,m)求交集 的时间复杂度是O(n).
+
+现在数据已经准备完成了.
+
+再运行search.php 就可以看到测试结果了.
+
+
+其他文件:
+load_word_to_mysql.php 文件, 用于把dict下面的细胞词库导入mysql的字典表.
+
+load_goods_data.php 用于把模拟的商品数据导入进 mysql,这一步估计会非常久,可以修改代码把数据集改小一点 或者 改mysql配置提高写入性能.
+
+utils.php 就是分词算法的实现,采用双向最大词匹配法.
