@@ -20,5 +20,8 @@ PHP+MYSQL+redis 实现的高性能电商商品搜索引擎。支持同义词搜�
 
 在普通PC上的压测结果，正常一个搜索请求，10毫秒左右返回结果。
 
-
 ![image](https://github.com/lokenetwork/shop_search/blob/master/picture/brower.png)
+
+![image](https://github.com/lokenetwork/shop_search/blob/master/picture/ab_test.png)
+
+
